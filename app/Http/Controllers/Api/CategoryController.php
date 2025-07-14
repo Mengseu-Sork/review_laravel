@@ -12,7 +12,10 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return CategoryResource::collection(Category::all());
+        $categories = Category::latest()->get();
+        return response()->json([
+            'data' => CategoryResource::collection($categories),
+        ]);
     }
 
     public function store(StoreCategoryRequest $request)
